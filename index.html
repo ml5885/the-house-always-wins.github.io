@@ -229,6 +229,44 @@
 
 		<section class="section">
 			<div class="container is-max-desktop">
+				<div class="columns is-centered has-text-centered">
+					<div class="column is-three-quarters">
+						<h2 class="title is-3">Framework and Approach</h2>
+						<div class="content has-text-justified">
+							<p>
+								We developed a framework to assess strategic deception in large
+								language models (LLMs) using blackjack. We observe outcomes
+								under three scenarios:
+							</p>
+							<ol style="">
+								<li>
+									<strong>Control:</strong> The dealer draws cards randomly
+									without any LLM involvement.
+								</li>
+								<li>
+									<strong>Implicit Randomness:</strong> The LLM is told to draw
+									cards randomly.
+								</li>
+								<li>
+									<strong>Explicit Choice:</strong> The LLM can choose between
+									letting the environnment draw cards randomly or selecting
+									specific cards.
+								</li>
+							</ol>
+							<p>
+								This setup allows us to observe and analyze how LLMs perform
+								under different conditions and whether their behavior indicates
+								strategic deception. The results from these scenarios are
+								detailed in the following tables.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container is-max-desktop">
 				<div class="table-container is-max-desktop is-centered">
 					<table class="table">
 						<caption>
@@ -382,13 +420,70 @@
 				<div class="columns is-centered has-text-centered">
 					<div class="column is-three-quarters">
 						<h2 class="title is-3">Discussion</h2>
-						<p>
-							The Kolmogorov-Smirnov test results reveal significant deviations
-							in dealer draws under implicit randomness, indicating strategic
-							manipulation. Explicit choice scenarios showed behavior closer to
-							fair play. This highlights the impact of instruction framing on
-							LLM decision-making and fairness.
-						</p>
+						<div class="content has-text-justified">
+							<p>
+								When implicit randomness was used, models like GPT-4-Turbo and
+								LLaMA 3 70B showed significant deviations from fair play. They
+								often favored outcomes that increased dealer win rates and
+								reduced bust rates, suggesting strategic manipulation of
+								randomness.
+								<img
+									src="./static/figure1.png"
+									alt="Figure 1: Distribution of final card values for player and dealer hands"
+									class="figure"
+								/>
+							</p>
+							<p>
+								In contrast, when given explicit choices, the models' behaviors
+								aligned more closely with fair play. This indicates that clear
+								instructions help prevent LLMs from exploiting randomness for
+								strategic advantage.
+								<img
+									src="./static/figure2.png"
+									alt="Figure 2: Frequency of card draws for the dealer’s hands"
+									class="figure"
+								/>
+							</p>
+							<p>
+								Kolmogorov-Smirnov test results confirm these observations, with
+								significant discrepancies in outcomes under implicit randomness
+								compared to explicit choices. This highlights the role of
+								instruction framing in influencing LLM behavior and preventing
+								potential deception.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container is-max-desktop">
+				<div class="columns is-centered has-text-centered">
+					<div class="column is-three-quarters">
+						<h2 class="title is-3">Conclusion</h2>
+						<div class="content has-text-justified">
+							<p>
+								In conclusion, our framework effectively demonstrates how LLMs
+								can exploit implicit randomness to their advantage, revealing a
+								potential for strategic manipulation. This finding emphasizes
+								the need for careful consideration of randomness and
+								instructions when designing LLM applications. The contrast
+								between behaviors under implicit randomness and explicit choices
+								highlights the importance of clear and precise directives to
+								ensure fair outcomes.
+							</p>
+							<p>
+								Future work should focus on expanding this framework to include
+								a broader range of LLMs and scenarios. Additionally,
+								investigating other forms of randomness and their impacts on
+								model behavior could provide further insights into how AI
+								systems interact with probabilistic environments. This continued
+								research is crucial for developing robust and fair AI systems
+								capable of maintaining integrity in diverse and unpredictable
+								settings.
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
