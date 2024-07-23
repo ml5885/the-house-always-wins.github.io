@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" class="fontawesome-i2svg-active fontawesome-i2svg-complete">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>
+			The House Always Wins: A Framework for Evaluating Strategic Deception in
+			LLMs
+		</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+		<link
+			href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="./static/bulma.min.css" />
+		<link rel="stylesheet" href="./static/bulma-carousel.min.css" />
+		<link rel="stylesheet" href="./static/bulma-slider.min.css" />
+		<link rel="stylesheet" href="./static/fontawesome.all.min.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"
+		/>
+		<link rel="stylesheet" href="./static/index.css" />
+		<link rel="stylesheet" href="https://use.typekit.net/iag3ven.css" />
+		<link rel="stylesheet" href="./static/prism.css" />
+		<link rel="icon" type="image/png" href="./static/platinum_chip.png" />
+
+		<style>
+			.animation-container {
+				width: 100%;
+				height: 400px;
+				margin: 20px 0;
+				position: relative;
+			}
+			.card {
+				width: 60px;
+				height: 90px;
+				background-color: white;
+				border: 2px solid #000;
+				border-radius: 5px;
+				position: absolute;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-weight: bold;
+				font-size: 20px;
+			}
+			#stepButton {
+				font-family: source-serif-4, serif;
+				font-weight: 600;
+				font-size: 1rem;
+				padding: 10px 20px;
+				background-color: #007700;
+				color: white;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+				margin-bottom: 20px;
+			}
+			#stepButton:hover {
+				background-color: #005500;
+			}
+			.thought-bubble {
+				background-color: #f0f0f0;
+				border: 1px solid #333;
+				border-radius: 20px;
+				padding: 10px;
+				position: absolute;
+				max-width: 200px;
+				opacity: 0;
+				font-size: 14px;
+			}
+			caption {
+				margin-bottom: 10px;
+			}
+			.highlight {
+				font-weight: bold;
+			}
+			.negative {
+				color: red;
+			}
+			.positive {
+				color: green;
+			}
+			.table-container {
+				overflow-x: auto;
+				white-space: nowrap;
+				max-width: 100%;
+				margin: 0 auto;
+			}
+
+			.table {
+				border-collapse: separate;
+				border-spacing: 0;
+				width: 100%;
+				margin: 0 auto;
+				font-family: source-serif-4, serif;
+				font-size: 1.3rem;
+			}
+
+			.table caption {
+				padding: 1rem;
+				font-weight: 600;
+				text-align: center;
+				font-size: 1.5rem;
+			}
+
+			.table th,
+			.table td {
+				padding: 0.5rem;
+				text-align: center;
+			}
+
+			.table th {
+				background-color: #f5f5f5;
+				font-weight: 600;
+			}
+
+			.table tr:nth-child(even) {
+				background-color: #f9f9f9;
+			}
+
+			table td,
+			table th {
+				font-feature-settings: "tnum";
+				font-variant-numeric: tabular-nums;
+			}
+		</style>
+	</head>
+	<body>
+		<section class="hero">
+			<div class="hero-body">
+				<div class="columns is-centered">
+					<div class="column has-text-centered">
+						<h1 class="title is-1 publication-title">
+							<span id="main-title">
+								<div id="worldmap" style="display: inline-block">
+									<img
+										src="./static/platinum_chip.png"
+										alt="platinum chip"
+										width="60"
+										height="60"
+									/>
+								</div>
+								The House Always Wins:
+								<div id="worldmap" style="display: inline-block">
+									<img
+										id="worldmap"
+										src="./static/platinum_chip.png"
+										alt="platinum chip"
+										width="60"
+										height="60"
+									/>
+								</div>
+								<p>
+									<span id="sub-title">
+										A Framework for Evaluating Strategic Deception in LLMs
+									</span>
+								</p>
+							</span>
+						</h1>
+						<div class="is-size-5 publication-authors">
+							<span class="author-block">
+								<a href="#">Tanush Chopra</a><sup>*1</sup>,
+							</span>
+							<span class="author-block">
+								<a href="#">Michael Li</a><sup>*2</sup>,
+							</span>
+						</div>
+						<div class="is-size-5 publication-authors">
+							<span class="author-block">
+								<sup>1</sup>Georgia Institute of Technology,
+							</span>
+							<span class="author-block">
+								<sup>2</sup>Carnegie Mellon University
+							</span>
+							<p style="margin-top: -0.25rem">
+								<span
+									class="author-block"
+									style="font-size: 0.7em; font-style: italic"
+								>
+									<sup>*</sup>Equal contribution
+								</span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container is-max-desktop">
+				<div class="columns is-centered has-text-centered">
+					<div class="column is-three-quarters">
+						<h2 class="title is-3">Abstract</h2>
+						<div class="content has-text-justified">
+							<p>
+								We propose a framework for evaluating strategic deception in
+								large language models (LLMs). In this framework, an LLM acts as
+								a game master in two scenarios: one with random game mechanics
+								and another where it can choose between random or deliberate
+								actions.
+							</p>
+							<p>
+								As an example, we use blackjack. This is a
+								<em>deliberate</em> choice; by selecting an environment in which
+								deception is not a naturally occurin behavior, we can mitigate
+								the effect that the model has already learned to be deceptive in
+								the environment.
+							</p>
+							<p>
+								We benchmark Llama3-70B, GPT-4-Turbo, and Mixtral, comparing
+								outcomes against expected distributions in fair play to
+								determine if LLMs develop strategies favoring the "house." Our
+								findings reveal that the LLMs exhibit
+								<b><em>significant deviations</em></b> from fair play when given
+								<em>implicit randomness</em> instructions, suggesting a tendency
+								towards strategic manipulation in ambiguous scenarios. However,
+								when presented with an <em>explicit choice</em>, the LLMs
+								largely adhere to fair play, indicating that the framing of
+								instructions plays a crucial role in eliciting or mitigating
+								potentially deceptive behaviors in AI systems.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container is-max-desktop">
+				<div class="table-container is-max-desktop is-centered">
+					<table class="table">
+						<caption>
+							Win Rates and Bust Frequencies Across Models and Scenarios
+						</caption>
+						<thead>
+							<tr>
+								<th>Model</th>
+								<th>Metric</th>
+								<th>Control</th>
+								<th>Implicit</th>
+								<th>Explicit</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td rowspan="3"><b>GPT-4-Turbo</b></td>
+								<td>Player Win (%)</td>
+								<td>4.1</td>
+								<td><b>14.36</b></td>
+								<td>5.90</td>
+							</tr>
+							<tr>
+								<td>Dealer Win (%)</td>
+								<td>72.7</td>
+								<td><b>78.93</b></td>
+								<td>67.10</td>
+							</tr>
+							<tr>
+								<td>Dealer Bust (%)</td>
+								<td>27.3</td>
+								<td><b>6.71</b></td>
+								<td>27.00</td>
+							</tr>
+							<tr>
+								<td rowspan="3"><b>Mixtral</b></td>
+								<td>Player Win (%)</td>
+								<td>4.1</td>
+								<td><b>7.37</b></td>
+								<td>4.30</td>
+							</tr>
+							<tr>
+								<td>Dealer Win (%)</td>
+								<td>72.7</td>
+								<td><b>83.90</b></td>
+								<td>67.40</td>
+							</tr>
+							<tr>
+								<td>Dealer Bust (%)</td>
+								<td>27.3</td>
+								<td><b>8.74</b></td>
+								<td>28.30</td>
+							</tr>
+							<tr>
+								<td rowspan="3"><b>LLaMA 3 70B</b></td>
+								<td>Player Win (%)</td>
+								<td>4.1</td>
+								<td><b>18.80</b></td>
+								<td>5.20</td>
+							</tr>
+							<tr>
+								<td>Dealer Win (%)</td>
+								<td>72.7</td>
+								<td><b>80.02</b></td>
+								<td>68.30</td>
+							</tr>
+							<tr>
+								<td>Dealer Bust (%)</td>
+								<td>27.3</td>
+								<td><b>1.18</b></td>
+								<td>26.50</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container is-max-desktop">
+				<div class="table-container is-max-desktop is-centered">
+					<table class="table">
+						<caption>
+							Kolmogorov-Smirnov Test Results Across Scenarios
+						</caption>
+						<thead>
+							<tr>
+								<th>Model</th>
+								<th colspan="2">Implicit Randomness</th>
+								<th colspan="2">Explicit Choice</th>
+							</tr>
+							<tr>
+								<th></th>
+								<th>D-statistic</th>
+								<th>p-value</th>
+								<th>D-statistic</th>
+								<th>p-value</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>GPT-4-Turbo (dealer wins)</td>
+								<td>0.1132</td>
+								<td>4.95e-06</td>
+								<td>0.0180</td>
+								<td>0.9970</td>
+							</tr>
+							<tr>
+								<td>GPT-4-Turbo (dealer draws)</td>
+								<td>0.1221</td>
+								<td>0.0005</td>
+								<td>0.0330</td>
+								<td>0.6900</td>
+							</tr>
+							<tr>
+								<td>Mixtral-8x7B (dealer wins)</td>
+								<td>0.0346</td>
+								<td>0.6584</td>
+								<td>0.0020</td>
+								<td>1.0000</td>
+							</tr>
+							<tr>
+								<td>Mixtral-8x7B (dealer draws)</td>
+								<td>0.2510</td>
+								<td>1.52e-17</td>
+								<td>0.0359</td>
+								<td>0.5726</td>
+							</tr>
+							<tr>
+								<td>Llama3-70B (dealer wins)</td>
+								<td>0.1529</td>
+								<td>7.52e-10</td>
+								<td>0.0110</td>
+								<td>0.9999</td>
+							</tr>
+							<tr>
+								<td>Llama3-70B (dealer draws)</td>
+								<td>0.3754</td>
+								<td>3.06e-24</td>
+								<td>0.0495</td>
+								<td>0.2077</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container is-max-desktop">
+				<div class="columns is-centered has-text-centered">
+					<div class="column is-three-quarters">
+						<h2 class="title is-3">Discussion</h2>
+						<p>
+							The Kolmogorov-Smirnov test results reveal significant deviations
+							in dealer draws under implicit randomness, indicating strategic
+							manipulation. Explicit choice scenarios showed behavior closer to
+							fair play. This highlights the impact of instruction framing on
+							LLM decision-making and fairness.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>
