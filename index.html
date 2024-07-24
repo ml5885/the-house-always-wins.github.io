@@ -24,108 +24,6 @@
 		<link rel="stylesheet" href="https://use.typekit.net/iag3ven.css" />
 		<link rel="stylesheet" href="./static/prism.css" />
 		<link rel="icon" type="image/png" href="./static/platinum_chip.png" />
-
-		<style>
-			.animation-container {
-				width: 100%;
-				height: 400px;
-				margin: 20px 0;
-				position: relative;
-			}
-			.card {
-				width: 60px;
-				height: 90px;
-				background-color: white;
-				border: 2px solid #000;
-				border-radius: 5px;
-				position: absolute;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				font-weight: bold;
-				font-size: 20px;
-			}
-			#stepButton {
-				font-family: source-serif-4, serif;
-				font-weight: 600;
-				font-size: 1rem;
-				padding: 10px 20px;
-				background-color: #007700;
-				color: white;
-				border: none;
-				border-radius: 5px;
-				cursor: pointer;
-				margin-bottom: 20px;
-			}
-			#stepButton:hover {
-				background-color: #005500;
-			}
-			.thought-bubble {
-				background-color: #f0f0f0;
-				border: 1px solid #333;
-				border-radius: 20px;
-				padding: 10px;
-				position: absolute;
-				max-width: 200px;
-				opacity: 0;
-				font-size: 14px;
-			}
-			caption {
-				margin-bottom: 10px;
-			}
-			.highlight {
-				font-weight: bold;
-			}
-			.negative {
-				color: red;
-			}
-			.positive {
-				color: green;
-			}
-			.table-container {
-				overflow-x: auto;
-				white-space: nowrap;
-				max-width: 100%;
-				margin: 0 auto;
-			}
-
-			.table {
-				border-collapse: separate;
-				border-spacing: 0;
-				width: 100%;
-				margin: 0 auto;
-				font-family: source-serif-4, serif;
-				font-size: 1.3rem;
-			}
-
-			.table caption {
-				padding: 1rem;
-				font-weight: 600;
-				text-align: center;
-				font-size: 1.5rem;
-			}
-
-			.table th,
-			.table td {
-				padding: 0.5rem;
-				text-align: center;
-			}
-
-			.table th {
-				background-color: #f5f5f5;
-				font-weight: 600;
-			}
-
-			.table tr:nth-child(even) {
-				background-color: #f9f9f9;
-			}
-
-			table td,
-			table th {
-				font-feature-settings: "tnum";
-				font-variant-numeric: tabular-nums;
-			}
-		</style>
 	</head>
 	<body>
 		<section class="hero">
@@ -293,6 +191,273 @@
 						</div>
 					</div>
 				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container is-max-desktop">
+				<h2 class="title is-3">Blackjack Scenario Animation</h2>
+				<div class="content">
+					<p>
+						This animation illustrates the three scenarios in our blackjack
+						experiment: Control, Explicit LLM, and Implicit LLM. Use the buttons
+						to switch between scenarios and click "Next Step" to progress
+						through each scenario.
+					</p>
+				</div>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 800 600"
+					preserveAspectRatio="xMidYMid meet"
+				>
+					<defs>
+						<filter id="dropShadow">
+							<feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+							<feOffset dx="2" dy="2" />
+							<feComponentTransfer>
+								<feFuncA type="linear" slope="0.3" />
+							</feComponentTransfer>
+							<feMerge>
+								<feMergeNode />
+								<feMergeNode in="SourceGraphic" />
+							</feMerge>
+						</filter>
+					</defs>
+
+					<style>
+						.table {
+							fill: #076324;
+							stroke: #4a3500;
+							stroke-width: 10;
+						}
+						.player {
+							fill: #3498db;
+							stroke: #2980b9;
+							stroke-width: 3;
+						}
+						.dealer {
+							fill: #e74c3c;
+							stroke: #c0392b;
+							stroke-width: 3;
+						}
+						.label {
+							font-family: Arial, sans-serif;
+							font-size: 18px;
+							fill: white;
+							text-anchor: middle;
+						}
+						.card {
+							fill: white;
+							stroke: #2c3e50;
+							stroke-width: 2;
+							filter: url(#dropShadow);
+						}
+						.card-text {
+							font-family: Arial, sans-serif;
+							font-size: 24px;
+							text-anchor: middle;
+						}
+						.thought-bubble {
+							fill: white;
+							stroke: #333;
+							stroke-width: 2;
+							filter: url(#dropShadow);
+						}
+						.thought-text {
+							font-family: Arial, sans-serif;
+							font-size: 20px;
+							text-anchor: middle;
+						}
+						.button {
+							fill: #2ecc71;
+							stroke: #27ae60;
+							stroke-width: 2;
+							cursor: pointer;
+							filter: url(#dropShadow);
+						}
+						.button:hover {
+							fill: #27ae60;
+						}
+						.button-text {
+							fill: white;
+							font-family: Arial, sans-serif;
+							font-size: 16px;
+							text-anchor: middle;
+							pointer-events: none;
+						}
+						.scenario-text {
+							font-family: Arial, sans-serif;
+							font-size: 24px;
+							fill: #2c3e50;
+							text-anchor: middle;
+						}
+					</style>
+
+					<!-- Blackjack Table -->
+					<rect
+						x="5%"
+						y="16.67%"
+						width="90%"
+						height="66.67%"
+						rx="10%"
+						class="table"
+					/>
+
+					<!-- Dealer's Cards -->
+					<rect
+						x="40%"
+						y="36.67%"
+						width="8.75%"
+						height="16.67%"
+						rx="0.83%"
+						class="card"
+						id="dealer-card-1"
+					/>
+					<text x="44.38%" y="46.67%" class="card-text" id="dealer-card-1-text">
+						?
+					</text>
+					<rect
+						x="51.25%"
+						y="36.67%"
+						width="8.75%"
+						height="16.67%"
+						rx="0.83%"
+						class="card"
+						id="dealer-card-2"
+					/>
+					<text x="55.63%" y="46.67%" class="card-text" id="dealer-card-2-text">
+						?
+					</text>
+
+					<!-- Player's Cards -->
+					<rect
+						x="40%"
+						y="55%"
+						width="8.75%"
+						height="16.67%"
+						rx="0.83%"
+						class="card"
+					/>
+					<text x="44.38%" y="65%" class="card-text" id="player-card-1-text">
+						10
+					</text>
+					<rect
+						x="51.25%"
+						y="55%"
+						width="8.75%"
+						height="16.67%"
+						rx="0.83%"
+						class="card"
+					/>
+					<text x="55.63%" y="65%" class="card-text" id="player-card-2-text">
+						7
+					</text>
+
+					<!-- Dealer -->
+					<circle cx="50%" cy="25%" r="6.67%" class="dealer" />
+					<text x="50%" y="26.17%" class="label">Dealer</text>
+
+					<!-- Player -->
+					<circle cx="50%" cy="80%" r="6.67%" class="player" />
+					<text x="50%" y="81.17%" class="label">Player</text>
+
+					<!-- Thought Bubble -->
+					<ellipse
+						cx="72.75%"
+						cy="22%"
+						rx="15%"
+						ry="11.67%"
+						class="thought-bubble"
+					/>
+					<text x="72.75%" y="22.83%" class="thought-text" id="thought-text">
+						Thinking...
+					</text>
+					<!-- Control Buttons -->
+					<rect
+						x="6.25%"
+						y="88.33%"
+						width="15%"
+						height="6.67%"
+						rx="1.5%"
+						class="button"
+						id="control-button"
+					/>
+					<text x="13.75%" y="92.5%" class="button-text">Control</text>
+
+					<rect
+						x="23.75%"
+						y="88.33%"
+						width="15%"
+						height="6.67%"
+						rx="1.5%"
+						class="button"
+						id="explicit-button"
+					/>
+					<text x="31.25%" y="92.5%" class="button-text">Explicit</text>
+
+					<rect
+						x="41.25%"
+						y="88.33%"
+						width="15%"
+						height="6.67%"
+						rx="1.5%"
+						class="button"
+						id="implicit-button"
+					/>
+					<text x="48.75%" y="92.5%" class="button-text">Implicit</text>
+
+					<rect
+						x="78.75%"
+						y="88.33%"
+						width="15%"
+						height="6.67%"
+						rx="1.5%"
+						class="button"
+						id="next-step-button"
+					/>
+					<text x="86.25%" y="92.5%" class="button-text">Next Step</text>
+
+					<!-- Scenario Text -->
+					<text x="50%" y="13.33%" class="scenario-text" id="scenario-text">
+						Control Scenario
+					</text>
+
+					<script type="text/javascript">
+						<![CDATA[ let currentScenario = 'control'; let step = 0; const
+						maxSteps = 3; function updateScenario(scenario) { currentScenario =
+						scenario; step = 0;
+						document.getElementById('scenario-text').textContent =
+						scenario.charAt(0).toUpperCase() + scenario.slice(1) + ' Scenario';
+						document.getElementById('dealer-card-1-text').textContent = '?';
+						document.getElementById('dealer-card-2-text').textContent = '?';
+						document.getElementById('thought-text').textContent = 'Thinking...';
+						updateThoughtBubble(); } function nextStep() { if (step < maxSteps)
+						{ step++; updateThoughtBubble(); if (step === maxSteps) {
+						revealDealerCards(); } } } function updateThoughtBubble() { const
+						thoughtText = document.getElementById('thought-text');
+						switch(currentScenario) { case 'control': thoughtText.textContent =
+						'random_card()'; break; case 'explicit': thoughtText.textContent =
+						step === 1 ? 'Choose random?' : (step === 2 ? 'random_card()' :
+						'Stand'); break; case 'implicit': thoughtText.textContent = step ===
+						1 ? 'Hmm...' : (step === 2 ? 'I choose 10' : 'Stand'); break; } }
+						function revealDealerCards() { const dealerCard1 =
+						document.getElementById('dealer-card-1-text'); const dealerCard2 =
+						document.getElementById('dealer-card-2-text');
+						switch(currentScenario) { case 'control': case 'explicit':
+						dealerCard1.textContent = Math.floor(Math.random() * 10) + 1;
+						dealerCard2.textContent = Math.floor(Math.random() * 10) + 1; break;
+						case 'implicit': dealerCard1.textContent = '10';
+						dealerCard2.textContent = '7'; break; } }
+						document.getElementById('control-button').addEventListener('click',
+						() => updateScenario('control'));
+						document.getElementById('explicit-button').addEventListener('click',
+						() => updateScenario('explicit'));
+						document.getElementById('implicit-button').addEventListener('click',
+						() => updateScenario('implicit'));
+						document.getElementById('next-step-button').addEventListener('click',
+						nextStep); ]]>
+					</script>
+				</svg>
 			</div>
 		</section>
 

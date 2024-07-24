@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <filter id="dropShadow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="2" dy="2"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <style>
+    .table { fill: #076324; stroke: #4a3500; stroke-width: 10; }
+    .player { fill: #3498db; stroke: #2980b9; stroke-width: 3; }
+    .dealer { fill: #e74c3c; stroke: #c0392b; stroke-width: 3; }
+    .label { font-family: Arial, sans-serif; font-size: 18px; fill: white; text-anchor: middle; }
+    .card { fill: white; stroke: #2c3e50; stroke-width: 2; filter: url(#dropShadow); }
+    .card-text { font-family: Arial, sans-serif; font-size: 24px; text-anchor: middle; }
+    .thought-bubble { fill: #f0f0f0; stroke: #333; stroke-width: 2; filter: url(#dropShadow); }
+    .thought-text { font-family: Arial, sans-serif; font-size: 14px; text-anchor: middle; }
+    .button { fill: #2ecc71; stroke: #27ae60; stroke-width: 2; cursor: pointer; filter: url(#dropShadow); }
+    .button:hover { fill: #27ae60; }
+    .button-text { fill: white; font-family: Arial, sans-serif; font-size: 16px; text-anchor: middle; pointer-events: none; }
+    .scenario-text { font-family: Arial, sans-serif; font-size: 24px; fill: #2c3e50; text-anchor: middle; }
+  </style>
+  
+  <!-- Blackjack Table -->
+  <rect x="50" y="100" width="700" height="400" rx="300" class="table" />
+  
+  <!-- Dealer -->
+  <circle cx="400" cy="150" r="40" class="dealer" />
+  <text x="400" y="157" class="label">Dealer</text>
+  
+  <!-- Player -->
+  <circle cx="400" cy="450" r="40" class="player" />
+  <text x="400" y="457" class="label">Player</text>
+  
+  <!-- Dealer's Cards -->
+  <rect x="320" y="220" width="70" height="100" rx="5" class="card" id="dealer-card-1" />
+  <text x="355" y="280" class="card-text" id="dealer-card-1-text">?</text>
+  <rect x="410" y="220" width="70" height="100" rx="5" class="card" id="dealer-card-2" />
+  <text x="445" y="280" class="card-text" id="dealer-card-2-text">?</text>
+  
+  <!-- Player's Cards -->
+  <rect x="320" y="330" width="70" height="100" rx="5" class="card" />
+  <text x="355" y="390" class="card-text" id="player-card-1-text">10</text>
+  <rect x="410" y="330" width="70" height="100" rx="5" class="card" />
+  <text x="445" y="390" class="card-text" id="player-card-2-text">7</text>
+  
+  <!-- Thought Bubble -->
+  <ellipse cx="550" cy="150" rx="120" ry="70" class="thought-bubble" />
+  <text x="550" y="155" class="thought-text" id="thought-text">Thinking...</text>
+  
+  <!-- Control Buttons -->
+  <rect x="50" y="530" width="120" height="40" rx="20" class="button" id="control-button" />
+  <text x="110" y="555" class="button-text">Control</text>
+  
+  <rect x="190" y="530" width="120" height="40" rx="20" class="button" id="explicit-button" />
+  <text x="250" y="555" class="button-text">Explicit</text>
+  
+  <rect x="330" y="530" width="120" height="40" rx="20" class="button" id="implicit-button" />
+  <text x="390" y="555" class="button-text">Implicit</text>
+  
+  <rect x="630" y="530" width="120" height="40" rx="20" class="button" id="next-step-button" />
+  <text x="690" y="555" class="button-text">Next Step</text>
+  
+  <!-- Scenario Text -->
+  <text x="400" y="80" class="scenario-text" id="scenario-text">Control Scenario</text>
+  
+  <script type="text/javascript">
+    <![CDATA[
+    let currentScenario = 'control';
+    let step = 0;
+    const maxSteps = 3;
+    
+    function updateScenario(scenario) {
+      currentScenario = scenario;
+      step = 0;
+      document.getElementById('scenario-text').textContent = scenario.charAt(0).toUpperCase() + scenario.slice(1) + ' Scenario';
+      document.getElementById('dealer-card-1-text').textContent = '?';
+      document.getElementById('dealer-card-2-text').textContent = '?';
+      document.getElementById('thought-text').textContent = 'Thinking...';
+      updateThoughtBubble();
+    }
+    
+    function nextStep() {
+      if (step < maxSteps) {
+        step++;
+        updateThoughtBubble();
+        if (step === maxSteps) {
+          revealDealerCards();
+        }
+      }
+    }
+    
+    function updateThoughtBubble() {
+      const thoughtText = document.getElementById('thought-text');
+      switch(currentScenario) {
+        case 'control':
+          thoughtText.textContent = 'random_card()';
+          break;
+        case 'explicit':
+          thoughtText.textContent = step === 1 ? 'Choose random?' : (step === 2 ? 'random_card()' : 'Stand');
+          break;
+        case 'implicit':
+          thoughtText.textContent = step === 1 ? 'Hmm...' : (step === 2 ? 'I choose 10' : 'Stand');
+          break;
+      }
+    }
+    
+    function revealDealerCards() {
+      const dealerCard1 = document.getElementById('dealer-card-1-text');
+      const dealerCard2 = document.getElementById('dealer-card-2-text');
+      switch(currentScenario) {
+        case 'control':
+          dealerCard1.textContent = Math.floor(Math.random() * 10) + 1;
+          dealerCard2.textContent = Math.floor(Math.random() * 10) + 1;
+          break;
+        case 'explicit':
+          dealerCard1.textContent = Math.floor(Math.random() * 10) + 1;
+          dealerCard2.textContent = Math.floor(Math.random() * 10) + 1;
+          break;
+        case 'implicit':
+          dealerCard1.textContent = '10';
+          dealerCard2.textContent = '7';
+          break;
+      }
+    }
+    
+    document.getElementById('control-button').addEventListener('click', () => updateScenario('control'));
+    document.getElementById('explicit-button').addEventListener('click', () => updateScenario('explicit'));
+    document.getElementById('implicit-button').addEventListener('click', () => updateScenario('implicit'));
+    document.getElementById('next-step-button').addEventListener('click', nextStep);
+    ]]>
+  </script>
+</svg>
