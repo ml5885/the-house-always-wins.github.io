@@ -334,11 +334,6 @@ th {
 	padding: 0 0.25em;
 }
 
-th:first-child,
-td:first-child {
-	text-align: right !important;
-}
-
 caption {
 	padding: 10px;
 	caption-side: bottom;
